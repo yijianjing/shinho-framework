@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.shinho.framework</groupId>
+    <artifactId>framework-parent</artifactId>
+    <version>1.0.5-SNAPSHOT</version>
+    <modules>
+        <module>framework-base</module>
+        <module>framework-common</module>
+        <module>framework-validator</module>
+        <module>framework-web</module>
+        <module>framework-redis</module>
+        <module>framework-jpa</module>
+        <module>framework-page</module>
+        <module>framework-page-support</module>
+        <module>framework-feign</module>
+        <module>framework-jdbc</module>
+        <module>framework-job</module>
+    </modules>
+    <packaging>pom</packaging>
+
+
+    <!-- 仓库地址 -->
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://120.27.215.202:8081/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <!-- 插件地址 -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://120.27.215.202:8081/repository/maven-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- 设定持续集成发布包服务器 -->
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Team Nexus Release Repository</name>
+            <url>http://120.27.215.202:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Team Nexus Snapshot Repository</name>
+            <url>http://120.27.215.202:8081/repository/maven-snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+    <properties>
+
+        <resource.delimiter>@</resource.delimiter> <!-- delimiter that doesn't clash with Spring ${} placeholders -->
+
+        <!-- 框架版本 -->
+        <com.shinho.framework.version>1.0.5-SNAPSHOT</com.shinho.framework.version>
+
+        <!-- 编码设置 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- jdk 版本设置 -->
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- spring boot 版本 -->
+        <spring-boot.version>1.5.2.RELEASE</spring-boot.version>
+        <spring-cloud-dependencies.version>Dalston.SR1</spring-cloud-dependencies.version>
+
+        <!-- bootclasspath -->
+        <bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</bootclasspath>
+
+        <!-- 二维码支持 -->
+        <zxing.version>3.3.0</zxing.version>
+        <!-- 数据源 -->
+        <druid.version>1.1.2</druid.version>
+        <!-- 条形码支持 -->
+        <barcode4j.version>2.1</barcode4j.version>
+        <!-- mysql 驱动 -->
+        <mysql-connector-java.version>6.0.6</mysql-connector-java.version>
+
+        <!-- 其他依赖 -->
+        <commons-beanutils.version>1.9.2</commons-beanutils.version>
+        <commons-fileupload.version>1.3.1</commons-fileupload.version>
+        <guava.version>18.0</guava.version>
+        <elastic-job.version>2.1.5</elastic-job.version>
+        <curator-client.version>2.11.1</curator-client.version>
+
+        <!-- 插件版本 -->
+        <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-base</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-common</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-jdbc</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-validator</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-redis</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-web</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-jpa</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-page</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.shinho.framework</groupId>
+                <artifactId>framework-page-support</artifactId>
+                <version>${com.shinho.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.barcode4j</groupId>
+                <artifactId>barcode4j-light</artifactId>
+                <version>${barcode4j.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <bootclasspath>${java.home}\lib\rt.jar;${java.home}\lib\jce.jar</bootclasspath>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+
+        <pluginManagement>
+            <plugins>
+                <!-- 编译插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <compilerArguments>
+                            <parameters/>
+                            <bootclasspath>${bootclasspath}</bootclasspath>
+                        </compilerArguments>
+                    </configuration>
+                </plugin>
+
+                <!-- 源码插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <configuration>
+                        <attach>true</attach>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+
+            <!-- 编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- 源码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
+
+
+    </build>
+
+</project>
